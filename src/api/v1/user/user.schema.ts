@@ -1,7 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { dataSource } from '../../../config/database';
 
 @Entity()
-export class User {
+class User {
 	@PrimaryGeneratedColumn()
 	id: number;
 
@@ -17,3 +18,5 @@ export class User {
 		this.lastName = '';
 	}
 }
+
+export const userModel = dataSource.getRepository(User)
