@@ -9,7 +9,7 @@ export function logFailure(msg: string): void {
 }
 
 export function logDebug(msg: string): void {
-    console.error(chalk.bgHex('#FF0000').white(`🐛[DEBUG]: ${msg}`));
+    console.error(chalk.bgHex('#FFFFFF').black(`🐛[DEBUG]: ${msg}`));
 }
 
 // type V1ResponseType<T = any> = {
