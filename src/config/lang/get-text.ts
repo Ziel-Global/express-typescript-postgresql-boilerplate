@@ -13,6 +13,6 @@ const findKey = (ref: MsgType, key: string) => {
 export default (key: string, lang?: Languages) => {
   switch (lang) {
     default:
-        findKey(en, key)
+        return findKey(en, key)
   }
 };

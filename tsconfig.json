@@ -15,7 +15,7 @@
 		]
 	},
 	"include": [
-		"src/**/*",
-		"src/types/**/*"
+		"src/**/*"
+		// "src/types/**/*"
 	]
 }

@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import loggerFn from '../config/logger';
-import { JwtSecretKey, prefix } from '../config/constants';
+import { JwtSecretKey, STATUS_CODES, prefix } from '../config/constants';
 import getText from '../config/lang/get-text';
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -10,6 +10,7 @@ import compression from "compression";
 import rateLimiter from '../api/v1/middlewares/rate-limiter';
 import { setInitialTimestamp } from '../api/v1/middlewares/set-initial-timeframe';
 import router from '../api/v1/router';
+import { clientError, success } from '../utils/helpers';
 
 export default (app: Express) => {
     process.on("uncaughtException", async (error) => {
@@ -41,16 +42,7 @@ export default (app: Express) => {
       app.use(rateLimiter);
       app.use(prefix, setInitialTimestamp, router);
       app.get("/", (_req, res) => {
-        return res
-          .status(200)
-          .json({
-            resultMessage: {
-              en: "Buddy is successfully working...",
-              tr: "Proje başarılı bir şekilde çalışıyor...",
-            },
-            resultCode: "00004",
-          })
-          .end();
+        return success(_req, res, '00007')
       });
 
       app.use((req, res, next) => {
@@ -68,12 +60,7 @@ export default (app: Express) => {
       });
 
       app.use((_req: Request, _res: Response) => {
-        const error = new Error("Could not find Endpoint!");
-        return _res.status(404).json({
-            msg: 'Could not find Endpoint!',
-            payload: error
-        })
+        return clientError(_req, _res, '00008',STATUS_CODES.CLIENT.NOT_FOUND)
       });
-    
   };
   
